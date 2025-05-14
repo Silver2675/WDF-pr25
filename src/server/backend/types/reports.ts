@@ -1,0 +1,25 @@
+import { z } from 'zod'
+
+export const SingleReport = z.object({
+  id: z.number(),
+  dateOfReport: z.string(),
+  dateOfNextReport: z.string(),
+  projectId: z.number(),
+  projectPhaseId: z.number().nullable(),
+  finishedActivities: z.string().nullable(),
+  inProgressActivities: z.string().nullable(),
+  plannedActivities: z.string().nullable(),
+  planTimeStatusId: z.number().nullable(),
+  resourcesStatusId: z.number().nullable(),
+  scopeStatusId: z.number().nullable(),
+  costStatusId: z.number().nullable(),
+  riskStatusId: z.number().nullable(),
+  planTimeDetails: z.string().nullable(),
+  resourcesDetails: z.string().nullable(),
+  scopeDetails: z.string().nullable(),
+  costDetails: z.string().nullable(),
+  riskDetails: z.string().nullable(),
+  risks: z.string().nullable(),
+  comment: z.string().nullable(),
+  teamSize: z.number().nullable().optional(),
+})

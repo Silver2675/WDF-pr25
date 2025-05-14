@@ -1,0 +1,117 @@
+app-template:
+  image:
+    repository: acrjitinternalprod.azurecr.io/watchdog/watchdog-frontend
+  
+  environmentalVariables:
+      enabled: true
+      enableSecretProviderClass: true
+      fetchEnvFromAzureKeyVault: true
+      keyVaultSettings:
+        data:
+          - objectName: "GRAPHCLIENTID"
+            key: GRAPH_CLIENT_ID
+          - objectName: "GRAPHSECRETKEY"
+            key: GRAPH_SECRET_KEY
+          - objectName: "GRAPHTENANTID"
+            key: GRAPH_TENANT_ID
+          - objectName: "AZUREAPPSCOPE"
+            key: AZURE_APP_SCOPE
+          - objectName: "NEXTPUBLICHOSTNAME"
+            key: NEXT_PUBLIC_HOST_NAME
+          - objectName: "NEXTPUBLICAPIURL"
+            key: NEXT_PUBLIC_API_URL
+          - objectName: "AZUREADSCOPE"
+            key: AZURE_AD_SCOPE
+          - objectName: "AZUREADTENANTID"
+            key: AZURE_AD_TENANT_ID
+          - objectName: "AZUREADCLIENTSECRET"
+            key: AZURE_AD_CLIENT_SECRET
+          - objectName: "AZUREADCLIENTID"
+            key: AZURE_AD_CLIENT_ID
+          - objectName: "NEXTAUTHSECRET"
+            key: NEXTAUTH_SECRET
+          - objectName: "NEXTAUTHURL"
+            key: NEXTAUTH_URL
+          - objectName: "BACKENDURL"
+            key: BACKEND_URL
+
+        parameters:
+          useVMManagedIdentity: "true"
+          userAssignedIdentityID: "8de07912-52c9-4aba-8ee5-322d4182bff7"
+          keyvaultName: 'watchdog-preprod'
+          objects: |
+            array:
+              - |
+                objectName: GRAPHCLIENTID
+                objectType: secret
+                objectVersion: ""
+              - |
+                objectName: GRAPHSECRETKEY
+                objectType: secret
+                objectVersion: ""
+              - |
+                objectName: GRAPHTENANTID
+                objectType: secret
+                objectVersion: ""
+              - |
+                objectName: AZUREAPPSCOPE
+                objectType: secret
+                objectVersion: ""
+              - |
+                objectName: NEXTAUTHSECRET
+                objectType: secret
+                objectVersion: ""
+              - |
+                objectName: NEXTAUTHURL
+                objectType: secret
+                objectVersion: ""
+              - |
+                objectName: BACKENDURL
+                objectType: secret
+                objectVersion: ""
+              - |
+                objectName: NEXTPUBLICHOSTNAME
+                objectType: secret
+                objectVersion: ""
+              - |
+                objectName: NEXTPUBLICAPIURL
+                objectType: secret
+                objectVersion: ""
+              - |
+                objectName: AZUREADSCOPE
+                objectType: secret
+                objectVersion: ""
+              - |
+                objectName: AZUREADTENANTID
+                objectType: secret
+                objectVersion: ""
+              - |
+                objectName: AZUREADCLIENTSECRET
+                objectType: secret
+                objectVersion: ""
+              - |
+                objectName: AZUREADCLIENTID
+                objectType: secret
+                objectVersion: ""
+                
+          tenantId: "888d5a15-2cbe-4e8b-b206-35923762a297"
+
+  ingress:
+    annotations:
+      appgw.ingress.kubernetes.io/ssl-redirect: 'true'
+    hosts:
+      - host: watchdog-preprod.prod.jit.ninja
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+    tls:
+      - secretName: frontend-tls-certificate
+        hosts:
+          - watchdog-preprod.prod.jit.ninja
+
+  certManagerCertificate:
+    enabled: true
+    issuer: "letsencrypt-prod"
+    secretName: "frontend-tls-certificate"
+    hosts:
+      - watchdog-preprod.prod.jit.ninja

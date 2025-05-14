@@ -1,0 +1,12 @@
+include:
+  - project: 'devops/gitlab-ci-templates'
+    file: 'docker.yml'
+
+variables:
+  GIT_DEPTH: 1
+  GIT_TIMEOUT: 1200
+  GIT_STRATEGY: fetch
+  KUBERNETES_NAMESPACE: watchdog-${ENV_NAME}
+  BACKEND_URL: "http://localhost:8080"
+  SONAR_ENABLED: "true"
+  SONAR_PROJECT_KEY: "watchdog_watchdog-frontend_AYkqQeIYcgmbeoHtsjpu"

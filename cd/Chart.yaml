@@ -1,0 +1,7 @@
+apiVersion: v2
+name: watchdog-frontend
+version: 1.0.0
+dependencies:
+  - name: app-template
+    version: v1.0.5
+    repository: oci://acrjitinternaltest.azurecr.io/helm
